@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//=====================DATABASE MODELS=======================
+
+enum Role {
+  ADMIN
+  AGENT
+  USER
+  MODERATOR
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String?
+  firstName String
+  lastName  String
+  avatar    String? //url from aws 3
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  admin     Admin?
+  agent     Agent?
+
+  @@map("users")
+}
+
+model Agent {
+  id   String @id @default(cuid())
+  user User   @relation(fields: [id], references: [id])
+
+  agentID     Int
+  orgType     String
+  orgName     String
+  country     String
+  state       String
+  city        String
+  phoneNumber String
+  zipCode     String
+  orgAddress  String?
+  docs        String? //url from aws 3
+
+  @@map("agents")
+}
+
+model Admin {
+  id   String @id @default(cuid())
+  user User   @relation(fields: [id], references: [id])
+
+  @@map("admins")
+}
