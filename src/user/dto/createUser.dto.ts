@@ -1,14 +1,12 @@
-import {
-  IsString,
-  IsEmail,
-  IsOptional,
-  IsEnum,
-  IsDate,
-  IsNotEmpty,
-  ValidateNested,
-} from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateAgentDto } from 'src/agent/dto/createAgent.dto';
+import {
+  IsDate,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 enum Role {
   ADMIN = 'ADMIN',
@@ -49,12 +47,4 @@ export class CreateUserDto {
   @IsOptional()
   @IsDate()
   updatedAt?: Date;
-
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @Type(() => CreateAgentDto)
-  agent: CreateAgentDto;
-
-  @IsOptional()
-  Agent?: string; // Replace with proper DTO or ID type if needed
 }

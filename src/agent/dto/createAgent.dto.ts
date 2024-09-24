@@ -1,13 +1,16 @@
+import { Type } from 'class-transformer';
 import {
-  IsString,
-  IsOptional,
-  IsNotEmpty,
   IsInt,
-  IsPhoneNumber,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
 } from 'class-validator';
+import { CreateUserDto } from 'src/user/dto/createUser.dto';
 
 export class CreateAgentDto {
   @IsInt()
+  @IsOptional()
   agentID: number;
 
   @IsString()
@@ -30,7 +33,7 @@ export class CreateAgentDto {
   @IsNotEmpty()
   city: string;
 
-  @IsPhoneNumber(null) // Adjust with a specific region if needed
+  @IsString()
   phoneNumber: string;
 
   @IsString()
@@ -44,4 +47,8 @@ export class CreateAgentDto {
   @IsOptional()
   @IsString()
   docs?: string; // URL for docs (AWS S3)
+
+  @ValidateNested({ each: true })
+  @Type(() => CreateUserDto)
+  user: CreateUserDto;
 }

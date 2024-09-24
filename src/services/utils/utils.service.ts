@@ -42,4 +42,13 @@ export class UtilsService {
   ): Promise<boolean> {
     return await bcrypt.compare(password, hash);
   }
+
+  /**============================HTTP RESPONSE CREATOR=================================== */
+
+  public successResponse(message: string, rest = {}) {
+    return {
+      message,
+      ...rest,
+    };
+  }
 }

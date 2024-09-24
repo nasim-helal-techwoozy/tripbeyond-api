@@ -36,7 +36,7 @@ model Agent {
   id   String @id @default(cuid())
   user User   @relation(fields: [id], references: [id])
 
-  agentID     Int
+  agentID     Int     @default(autoincrement())
   orgType     String
   orgName     String
   country     String
