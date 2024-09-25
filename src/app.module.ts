@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AdminModule } from './admin/admin.module';
-import { AgentModule } from './agent/agent.module';
+import { AdminModule } from './entities/admin/admin.module';
+import { AgentModule } from './entities/agent/agent.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { PrismaService } from './services/prisma/prisma.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from './entities/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [UserModule, AgentModule, AuthModule, AdminModule],

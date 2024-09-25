@@ -6,7 +6,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { CreateUserDto } from 'src/user/dto/createUser.dto';
+import { CreateUserDto } from 'src/entities/user/dto/createUser.dto';
 
 export class CreateAgentDto {
   @IsInt()

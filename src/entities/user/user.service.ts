@@ -4,12 +4,13 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
+
+import { AuthService } from 'src/modules/auth/auth.service';
+import { EmailService } from 'src/services/email/email.service';
+import { emailTemplate } from 'src/services/email/email.template';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { UtilsService } from 'src/services/utils/utils.service';
 import { CreateUserDto } from './dto/createUser.dto';
-import { EmailService } from 'src/services/email/email.service';
-import { emailTemplate } from 'src/services/email/email.template';
 
 @Injectable()
 export class UserService {

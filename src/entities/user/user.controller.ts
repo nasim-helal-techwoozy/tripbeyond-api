@@ -5,9 +5,9 @@ import { ForgotPassUserDto } from './dto/forgotPassUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { UpdatePassUserDto } from './dto/updatePassUser.dto';
 import { UserService } from './user.service';
-import { Roles } from 'src/auth/roles/roles.decorator';
-import { Role } from 'src/auth/roles/role.enum';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
+import { Roles } from 'src/modules/roles/roles.decorator';
+import { RolesGuard } from 'src/modules/roles/roles.guard';
+import { Role } from 'src/modules/roles/roles.enum';
 
 @Controller('user')
 export class UserController {

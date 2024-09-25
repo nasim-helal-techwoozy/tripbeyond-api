@@ -5,10 +5,9 @@ import { CreateAgentDto } from './dto/createAgent.dto';
 import { LoginAgentDto } from './dto/loginAgent.dto';
 import { ForgotPassAgentDto } from './dto/forgotPassAgent.dto';
 import { UpdatePassAgentDto } from './dto/updatePassAgent.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { Roles } from 'src/auth/roles/roles.decorator';
-import { Role } from 'src/auth/roles/role.enum';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
+import { Roles } from 'src/modules/roles/roles.decorator';
+import { RolesGuard } from 'src/modules/roles/roles.guard';
+import { Role } from 'src/modules/roles/roles.enum';
 
 @Controller('agent')
 export class AgentController {
