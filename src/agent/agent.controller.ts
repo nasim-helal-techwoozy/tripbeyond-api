@@ -6,6 +6,9 @@ import { LoginAgentDto } from './dto/loginAgent.dto';
 import { ForgotPassAgentDto } from './dto/forgotPassAgent.dto';
 import { UpdatePassAgentDto } from './dto/updatePassAgent.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/auth/roles/roles.decorator';
+import { Role } from 'src/auth/roles/role.enum';
+import { RolesGuard } from 'src/auth/roles/roles.guard';
 
 @Controller('agent')
 export class AgentController {
@@ -38,8 +41,10 @@ export class AgentController {
   }
 
   /**==================UPDATE AGENT PASSWORD =============== */
+
+  @Roles(Role.AGENT, Role.MODERATOR)
+  @UseGuards(RolesGuard)
   @Post('update-password')
-  @UseGuards(AuthGuard)
   @HttpCode(200)
   async updatePassword(@Body() data: UpdatePassAgentDto) {
     await this.agentService.updatePassword(data);
@@ -50,6 +55,8 @@ export class AgentController {
   }
 
   /**==================AGENT FORGOT-PASSWORD =============== */
+  @Roles(Role.AGENT, Role.MODERATOR)
+  @UseGuards(RolesGuard)
   @Post('forgot-password')
   @HttpCode(200)
   async forgotPassword(@Body() agent: ForgotPassAgentDto) {

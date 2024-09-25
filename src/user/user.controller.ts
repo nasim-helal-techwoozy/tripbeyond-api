@@ -1,14 +1,13 @@
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { UtilsService } from 'src/services/utils/utils.service';
 import { CreateUserDto } from './dto/createUser.dto';
-import { LoginUserDto } from './dto/loginUser.dto';
-import { UserService } from './user.service';
-import { UpdatePassUserDto } from './dto/updatePassUser.dto';
 import { ForgotPassUserDto } from './dto/forgotPassUser.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { Authenticated } from 'src/auth/auth.decorator';
-import { Roles } from 'src/roles/roles.decorator';
-import { Role } from 'src/roles/role.enum';
+import { LoginUserDto } from './dto/loginUser.dto';
+import { UpdatePassUserDto } from './dto/updatePassUser.dto';
+import { UserService } from './user.service';
+import { Roles } from 'src/auth/roles/roles.decorator';
+import { Role } from 'src/auth/roles/role.enum';
+import { RolesGuard } from 'src/auth/roles/roles.guard';
 
 @Controller('user')
 export class UserController {
@@ -24,9 +23,7 @@ export class UserController {
 
     return this.utilsService.successResponse(
       'You are successfully register as user',
-      {
-        user: registeredUser,
-      },
+      { user: registeredUser },
     );
   }
 
@@ -37,16 +34,14 @@ export class UserController {
     const token = await this.userService.login(agent);
     return this.utilsService.successResponse(
       'You are successfully Logged in as a user',
-      {
-        token,
-      },
+      { token },
     );
   }
 
   /**==================UPDATE USER PASSWORD =============== */
+  @Roles(Role.USER, Role.MODERATOR)
+  @UseGuards(RolesGuard)
   @Post('update-password')
-  @Authenticated()
-  @Roles(Role.AGENT)
   @HttpCode(200)
   async updatePassword(@Body() data: UpdatePassUserDto) {
     await this.userService.updatePassword(data);
@@ -57,6 +52,8 @@ export class UserController {
   }
 
   /**==================USER FORGOT-PASSWORD =============== */
+  @Roles(Role.USER, Role.MODERATOR)
+  @UseGuards(RolesGuard)
   @Post('forgot-password')
   @HttpCode(200)
   async forgotPassword(@Body() user: ForgotPassUserDto) {
