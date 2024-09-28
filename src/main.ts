@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
+import { hostname } from 'os';
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -17,6 +18,6 @@ async function bootstrap() {
   );
   app.setGlobalPrefix('api');
   app.enableCors();
-  await app.listen(5000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
