@@ -30,6 +30,10 @@ export class AgentService {
       );
     }
 
+    if (!user.password) {
+      user.password = this.utilsService.generatePassword();
+    }
+
     const hashedPassword = await this.utilsService.encryptPassword(
       user.password,
     );

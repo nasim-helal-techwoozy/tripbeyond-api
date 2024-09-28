@@ -39,12 +39,13 @@ model Agent {
   agentID     Int     @default(autoincrement())
   orgType     String
   orgName     String
+  orgAddress  String?
   country     String
   state       String
   city        String
   phoneNumber String
   zipCode     String
-  orgAddress  String?
+  isApprove   Boolean
   docs        String? //url from aws 3
 
   @@map("agents")

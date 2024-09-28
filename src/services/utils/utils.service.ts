@@ -10,7 +10,7 @@ export class UtilsService {
     saltRounds = 10,
   ): Promise<string> {
     const salt = await bcrypt.genSalt(saltRounds);
-    return await bcrypt.hash(password, salt);
+    return bcrypt.hash(password, salt);
   }
 
   public generatePassword(): string {
