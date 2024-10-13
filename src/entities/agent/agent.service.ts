@@ -9,6 +9,7 @@ import { EmailService } from 'src/services/email/email.service';
 import { emailTemplate } from 'src/services/email/email.template';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { UtilsService } from 'src/services/utils/utils.service';
+import { Agent } from './types';
 
 @Injectable()
 export class AgentService {
@@ -20,7 +21,7 @@ export class AgentService {
   ) {}
 
   /**=============================REGISTER AGENT======================================== */
-  public async register(agent: any) {
+  public async register(agent: Agent) {
     const { user, ...agentData } = agent;
 
     const existingAgent = await this.findAgentByEmail(user.email);
